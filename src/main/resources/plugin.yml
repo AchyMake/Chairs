@@ -1,0 +1,21 @@
+name: Chairs
+version: '${project.version}'
+main: net.achymake.chairs.Chairs
+api-version: 1.15
+prefix: Chairs
+authors: [ AchyMake ]
+description: adds chairs to the server
+permissions:
+  chairs.sit:
+    default: op
+    description: allows to sit
+  chairs.reload:
+    default: op
+    description: reload config
+commands:
+  sit:
+    description: allows to sit
+    permission: chairs.sit
+  chairs:
+    permission: chairs.reload
+    description: reload config
