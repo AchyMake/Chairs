@@ -1,0 +1,50 @@
+name: Chairs
+version: '${project.version}'
+main: org.achymake.chairs.Chairs
+api-version: '1.16'
+prefix: '${project.name}'
+load: STARTUP
+author: AchyMake
+description: '${project.description}'
+commands:
+  chairs:
+    permission: chairs.command.reload
+    description: reload config
+    permission-message: You do not have the permission to execute this command
+    usage: /chairs reload
+  sit:
+    permission: chairs.command.sit
+    description: allows to sit anywhere
+    permission-message: You do not have the permission to execute this command
+    usage: /sit
+permissions:
+  chairs.command.reload:
+    description: allows to reload config
+    default: op
+  chairs.command.sit:
+    description: allows to sit anywhere
+    default: op
+  chairs.sit:
+    description: allows to sit on all chairs
+    default: op
+    children:
+      - chairs.sit.carpets
+      - chairs.sit.hay_block
+      - chairs.sit.scaffolding
+      - chairs.sit.slabs
+      - chairs.sit.stairs
+  chairs.sit.carpets:
+    description: allows to sit on carpets
+    default: op
+  chairs.sit.hay_block:
+    description: allows to sit on carpets
+    default: op
+  chairs.sit.scaffolding:
+    description: allows to sit on carpets
+    default: op
+  chairs.sit.slabs:
+    description: allows to sit on slabs
+    default: op
+  chairs.sit.stairs:
+    description: allows to sit on stairs
+    default: op
