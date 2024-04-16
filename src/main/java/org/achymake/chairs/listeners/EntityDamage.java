@@ -1,7 +1,7 @@
 package org.achymake.chairs.listeners;
 
 import org.achymake.chairs.Chairs;
-import org.achymake.chairs.files.Database;
+import org.achymake.chairs.data.Database;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,12 +9,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-public class EntityDamage implements Listener {
+public record EntityDamage(Chairs plugin) implements Listener {
     private Database getDatabase() {
-        return Chairs.getDatabase();
-    }
-    public EntityDamage(Chairs plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        return plugin.getDatabase();
     }
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {

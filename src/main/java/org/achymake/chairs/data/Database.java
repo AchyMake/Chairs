@@ -1,4 +1,4 @@
-package org.achymake.chairs.files;
+package org.achymake.chairs.data;
 
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;

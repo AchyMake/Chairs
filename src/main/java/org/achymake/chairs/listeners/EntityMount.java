@@ -1,7 +1,7 @@
 package org.achymake.chairs.listeners;
 
 import org.achymake.chairs.Chairs;
-import org.achymake.chairs.files.Database;
+import org.achymake.chairs.data.Database;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -10,12 +10,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.entity.EntityMountEvent;
 
-public class EntityMount implements Listener {
+public record EntityMount(Chairs plugin) implements Listener {
     private Database getDatabase() {
-        return Chairs.getDatabase();
-    }
-    public EntityMount(Chairs plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        return plugin.getDatabase();
     }
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityMount(EntityMountEvent event) {

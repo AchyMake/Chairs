@@ -1,7 +1,8 @@
 package org.achymake.chairs.commands;
 
 import org.achymake.chairs.Chairs;
-import org.achymake.chairs.files.Database;
+import org.achymake.chairs.data.Database;
+import org.achymake.chairs.data.Message;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,8 +16,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class SitCommand implements CommandExecutor, TabCompleter {
+    private Chairs getPlugin() {
+        return Chairs.getInstance();
+    }
     private Database getDatabase() {
-        return Chairs.getDatabase();
+        return getPlugin().getDatabase();
+    }
+    private Message getMessage() {
+        return getPlugin().getMessage();
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -24,7 +31,7 @@ public class SitCommand implements CommandExecutor, TabCompleter {
             if (args.length == 0) {
                 if (player.isOnGround()) {
                     if (!player.getLocation().add(0,-1,0).getBlock().isEmpty()) {
-                        if (!Chairs.isSitting(player)) {
+                        if (!getPlugin().isSitting(player)) {
                             if (!getDatabase().isOccupied(player.getLocation().getBlock())) {
                                 Location location = player.getLocation().getBlock().getLocation().add(0.5, -0.9, 0.5);
                                 location.setYaw(player.getLocation().getYaw());
@@ -39,11 +46,11 @@ public class SitCommand implements CommandExecutor, TabCompleter {
                             }
                         }
                     } else {
-                        Chairs.sendActionBar(player,"&cYou have to stand on ground");
+                        getMessage().sendActionBar(player,"&cYou have to stand on ground");
                         return true;
                     }
                 } else {
-                    Chairs.sendActionBar(player,"&cYou have to stand on ground");
+                    getMessage().sendActionBar(player,"&cYou have to stand on ground");
                     return true;
                 }
             }
