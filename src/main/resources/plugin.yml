@@ -1,0 +1,37 @@
+name: Chairs
+version: '${project.version}'
+main: org.achymake.chairs.Chairs
+api-version: '1.21'
+prefix: '${project.name}'
+load: STARTUP
+author: AchyMake
+description: '${project.description}'
+website: '${project.url}'
+commands:
+  chairs:
+    description: chairs command
+    permission: chairs.command.chairs
+    permission-message: You do not have the permission to execute the command
+permissions:
+  chairs.command.chairs:
+    description: chairs command
+    default: op
+  chairs.event.sit:
+    description: allows to sit on all chairs
+    default: op
+    children:
+      - chairs.event.sit.carpets
+      - chairs.event.sit.slabs
+      - chairs.event.sit.stairs
+  chairs.event.sit.carpets:
+    description: allows to sit on carpets
+    default: op
+  chairs.event.sit.slabs:
+    description: allows to sit on slabs
+    default: op
+  chairs.event.sit.stairs:
+    description: allows to sit on stairs
+    default: op
+  chairs.event.join.update:
+    description: gets update
+    default: op
