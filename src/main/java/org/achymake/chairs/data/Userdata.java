@@ -44,34 +44,48 @@ public class Userdata {
     }
     public void setLastLocation(Player player) {
         var x = player.getLocation().getX();
-        var y = player.getLocation().getX();
-        var z = player.getLocation().getX();
-        getData(player).set(getKey("last-location.x"), PersistentDataType.DOUBLE, x);
-        getData(player).set(getKey("last-location.y"), PersistentDataType.DOUBLE, y);
-        getData(player).set(getKey("last-location.z"), PersistentDataType.DOUBLE, z);
+        var y = player.getLocation().getY();
+        var z = player.getLocation().getZ();
+        var data = getData(player);
+        data.set(getKey("chairs-last-location-x"), PersistentDataType.DOUBLE, x);
+        data.set(getKey("chairs-last-location-y"), PersistentDataType.DOUBLE, y);
+        data.set(getKey("chairs-last-location-z"), PersistentDataType.DOUBLE, z);
     }
     public Location getLastLocation(Player player) {
         var world = player.getWorld();
-        var x = getData(player).get(getKey("last-location.x"), PersistentDataType.DOUBLE);
-        var y = getData(player).get(getKey("last-location.y"), PersistentDataType.DOUBLE);
-        var z = getData(player).get(getKey("last-location.z"), PersistentDataType.DOUBLE);
-        var yaw = player.getLocation().getYaw();
-        var pitch = player.getLocation().getPitch();
-        return new Location(world, x, y, z, yaw, pitch);
+        var data = getData(player);
+        if (data.has(getKey("chairs-last-location-x")) &&
+                data.has(getKey("chairs-last-location-y")) &&
+                data.has(getKey("chairs-last-location-z"))) {
+            var x = data.get(getKey("chairs-last-location-x"), PersistentDataType.DOUBLE);
+            var y = data.get(getKey("chairs-last-location-y"), PersistentDataType.DOUBLE);
+            var z = data.get(getKey("chairs-last-location-z"), PersistentDataType.DOUBLE);
+            var yaw = player.getLocation().getYaw();
+            var pitch = player.getLocation().getPitch();
+            return new Location(world, x, y, z, yaw, pitch);
+        } else {
+            var x = player.getLocation().getX();
+            var y = player.getLocation().getY() + 1;
+            var z = player.getLocation().getZ();
+            var yaw = player.getLocation().getYaw();
+            var pitch = player.getLocation().getPitch();
+            return new Location(world, x, y, z, yaw, pitch);
+        }
     }
     public boolean hasChair(Player player) {
-        return getData(player).has(getKey("chair"), PersistentDataType.STRING);
+        return getData(player).has(getKey("chairs-chair"), PersistentDataType.STRING);
     }
     public void setChair(Player player, ArmorStand armorStand) {
-        getData(player).set(getKey("chair"), PersistentDataType.STRING, armorStand.getUniqueId().toString());
+        getData(player).set(getKey("chairs-chair"), PersistentDataType.STRING, armorStand.getUniqueId().toString());
     }
     public ArmorStand getChair(Player player) {
         if (hasChair(player)) {
-            return (ArmorStand) getEntity(getData(player).get(getKey("chair"), PersistentDataType.STRING));
+            return (ArmorStand) getEntity(getData(player).get(getKey("chairs-chair"), PersistentDataType.STRING));
         } else return null;
     }
     public void dismount(Player player) {
         if (hasChair(player)) {
+            var data = getData(player);
             var armorStand = getChair(player);
             if (armorStand != null) {
                 var above = armorStand.getLocation().add(0,1,0).getBlock();
@@ -79,12 +93,20 @@ public class Userdata {
                     getWorldHandler().removeOccupied(above);
                 }
                 armorStand.remove();
+                if (data.has(getKey("chairs-chair"))) {
+                    data.remove(getKey("chairs-chair"));
+                }
             }
             player.teleport(getLastLocation(player));
-            getData(player).remove(getKey("chair"));
-            getData(player).remove(getKey("last-location.x"));
-            getData(player).remove(getKey("last-location.y"));
-            getData(player).remove(getKey("last-location.z"));
+            if (data.has(getKey("chairs-last-location-x"))) {
+                data.remove(getKey("chairs-last-location-x"));
+            }
+            if (data.has(getKey("chairs-last-location-y"))) {
+                data.remove(getKey("chairs-last-location-y"));
+            }
+            if (data.has(getKey("chairs-last-location-z"))) {
+                data.remove(getKey("chairs-last-location-z"));
+            }
         }
     }
 }

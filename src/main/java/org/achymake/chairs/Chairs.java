@@ -48,7 +48,7 @@ public final class Chairs extends JavaPlugin {
     @Override
     public void onDisable() {
         getOnlinePlayers().forEach(this::dismount);
-        getScheduleHandler().cancelAll();
+        getScheduleHandler().disable();
         sendInfo("Disabled for " + getMinecraftProvider() + " " + getMinecraftVersion());
     }
     private void commands() {

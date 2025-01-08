@@ -14,8 +14,8 @@ public class ScheduleHandler {
     public BukkitTask runLater(Runnable runnable, long timer) {
         return getScheduler().runTaskLater(getInstance(), runnable, timer);
     }
-    public BukkitTask runAsynchronously(Runnable runnable) {
-        return getScheduler().runTaskAsynchronously(getInstance(), runnable);
+    public void runAsynchronously(Runnable runnable) {
+        getScheduler().runTaskAsynchronously(getInstance(), runnable);
     }
     public boolean isQueued(int taskID) {
         return getScheduler().isQueued(taskID);
@@ -25,7 +25,7 @@ public class ScheduleHandler {
             getScheduler().cancelTask(taskID);
         }
     }
-    public void cancelAll() {
+    public void disable() {
         getScheduler().cancelTasks(getInstance());
     }
 }
