@@ -15,6 +15,13 @@ public class MaterialHandler {
     public Stairs getStair(Block block) {
         return (Stairs) block.getBlockData();
     }
+    public boolean isWaterLogged(Block block) {
+        if (block.getBlockData() instanceof Stairs stairs) {
+            return stairs.isWaterlogged();
+        } else if (block.getBlockData() instanceof Slab slab) {
+            return slab.isWaterlogged();
+        } else return false;
+    }
     public Slab getSlab(Block block) {
         return (Slab) block.getBlockData();
     }

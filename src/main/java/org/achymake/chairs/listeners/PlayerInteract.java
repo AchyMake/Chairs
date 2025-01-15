@@ -63,6 +63,7 @@ public class PlayerInteract implements Listener {
             getUserdata().setChair(player, armorStand);
             armorStand.addPassenger(player);
         } else if (Tag.SLABS.isTagged(block.getType())) {
+            if (getMaterials().isWaterLogged(block))return;
             if (!player.hasPermission("chairs.event.sit.slabs"))return;
             if (!getMaterials().isBottom(getMaterials().getSlab(block)))return;
             getUserdata().setLastLocation(player);
@@ -74,6 +75,7 @@ public class PlayerInteract implements Listener {
             getUserdata().setChair(player, armorStand);
             armorStand.addPassenger(player);
         } else if (Tag.STAIRS.isTagged(block.getType())) {
+            if (getMaterials().isWaterLogged(block))return;
             if (!player.hasPermission("chairs.event.sit.stairs"))return;
             if (!getMaterials().isBottom(getMaterials().getStair(block)))return;
             if (getMaterials().isEast(getMaterials().getStair(block))) {
