@@ -1,8 +1,7 @@
 package org.achymake.chairs;
 
-import org.achymake.chairs.commands.ChairsCommand;
-import org.achymake.chairs.data.Message;
-import org.achymake.chairs.data.Userdata;
+import org.achymake.chairs.commands.*;
+import org.achymake.chairs.data.*;
 import org.achymake.chairs.handlers.*;
 import org.achymake.chairs.listeners.*;
 import org.bukkit.NamespacedKey;
@@ -59,6 +58,7 @@ public final class Chairs extends JavaPlugin {
         new EntityDamage();
         new EntityDamageByEntity();
         new EntityDismount();
+        new EntityMount();
         new PlayerDeath();
         new PlayerInteract();
         new PlayerJoin();
