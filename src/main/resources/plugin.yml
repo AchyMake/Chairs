@@ -18,20 +18,20 @@ permissions:
     default: op
   chairs.event.sit:
     description: allows to sit on all chairs
-    default: op
+    default: true
     children:
       - chairs.event.sit.carpets
       - chairs.event.sit.slabs
       - chairs.event.sit.stairs
   chairs.event.sit.carpets:
     description: allows to sit on carpets
-    default: op
+    default: true
   chairs.event.sit.slabs:
     description: allows to sit on slabs
-    default: op
+    default: true
   chairs.event.sit.stairs:
     description: allows to sit on stairs
-    default: op
+    default: true
   chairs.event.join.update:
     description: gets update
     default: op
